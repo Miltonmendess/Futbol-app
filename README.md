@@ -2,7 +2,7 @@
 
 ##Descripción del Proyecto
 
-Este proyecto consiste en el desarrollo de una aplicación móvil para Android que muestre los partidos de fútbol de la semana de la Liga profesional del Futbol Argentino. El objetivo es que los usuarios puedan consultar rápidamente los partidos programados, ver horarios, equipos participantes y recibir actualizaciones.
+Este proyecto consiste en el desarrollo de una aplicación móvil para Android que muestre los partidos de fútbol de la semana de la Liga Profesional del Fútbol Argentino. El objetivo principal es permitir que los usuarios consulten rápidamente los partidos programados, con horarios, equipos participantes y actualizaciones.
 
 ## Exposición del Problema
 
@@ -42,8 +42,8 @@ Esquema inicial de pantallas:
 
 - [x] Estructura de pantallas creada en App Inventor
 - [x] Datos fijos cargados por día
-- [ ] Mejora en el diseño visual
-- [ ] Agregado de detalles adicionales por partido
+- [x] Mejora en el diseño visual
+- [x] Agregado de detalles adicionales por partido
 - [ ] Exportación de APK y prueba en dispositivo
 
 ---
