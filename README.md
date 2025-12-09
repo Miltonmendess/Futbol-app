@@ -1,289 +1,69 @@
-import 'package:flutter/material.dart';
+# App de Partidos de Fútbol Semanales
 
-void main() => runApp(FutbolApp());
+##Descripción del Proyecto
 
-class FutbolApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fútbol Argentino',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: PantallaInicio(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+Esta aplicación móvil fue desarrollada en **Flutter** con el objetivo de ofrecer una forma rápida, simple y visualmente amigable de consultar los **partidos semanales de la Liga Profesional del Fútbol Argentino**. Está pensada para los fanáticos que desean ver la programación semanal sin necesidad de buscar en múltiples sitios o enfrentar resultados confusos en buscadores.
 
-class PantallaInicio extends StatelessWidget {
-  final Map<String, List<Map<String, String>>> partidos = {
-    'Lunes': [
-      {'local': 'River Plate', 'visitante': 'Boca Juniors', 'hora': '21:30'}
-    ],
-    'Martes': [
-      {'local': 'Racing', 'visitante': 'Independiente', 'hora': '19:00'},
-      {'local': 'San Lorenzo', 'visitante': 'Huracán', 'hora': '21:15'}
-    ],
-    'Miércoles': [
-      {'local': 'Estudiantes', 'visitante': 'Gimnasia', 'hora': '20:00'}
-    ],
-    'Jueves': [
-      {'local': 'Vélez', 'visitante': 'Lanús', 'hora': '19:30'},
-      {'local': 'Talleres', 'visitante': 'Belgrano', 'hora': '21:45'}
-    ],
-    'Viernes': [
-      {'local': 'Newells', 'visitante': 'Rosario Central', 'hora': '20:30'}
-    ],
-    'Sábado': [
-      {'local': 'Godoy Cruz', 'visitante': 'Banfield', 'hora': '15:30'},
-      {'local': 'Tigre', 'visitante': 'Platense', 'hora': '17:45'},
-      {'local': 'Colón', 'visitante': 'Unión', 'hora': '20:00'}
-    ],
-    'Domingo': [
-      {'local': 'Argentinos Juniors', 'visitante': 'Defensa y Justicia', 'hora': '15:00'},
-      {'local': 'Arsenal', 'visitante': 'Sarmiento', 'hora': '17:30'},
-      {'local': 'Atlético Tucumán', 'visitante': 'Central Córdoba', 'hora': '20:15'}
-    ],
-  };
+---
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Partidos del Fútbol Argentino'),
-        backgroundColor: Colors.blue[700],
-        foregroundColor: Colors.white,
-        centerTitle: true,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue[50]!, Colors.white],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              Text(
-                'Selecciona un día de la semana',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue[800],
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Toca cualquier día para ver los partidos',
-                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: partidos.keys.length,
-                  itemBuilder: (context, index) {
-                    String dia = partidos.keys.elementAt(index);
-                    int cantidad = partidos[dia]!.length;
-                    return Card(
-                      margin: EdgeInsets.only(bottom: 12),
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.blue[100],
-                          child: Icon(Icons.calendar_today, color: Colors.blue[700]),
-                        ),
-                        title: Text(
-                          dia,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                        ),
-                        subtitle: Text(
-                          '$cantidad partido${cantidad > 1 ? 's' : ''}',
-                          style: TextStyle(color: Colors.grey[600]),
-                        ),
-                        trailing: Icon(Icons.arrow_forward_ios, color: Colors.blue[700]),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PantallaPartidos(
-                                dia: dia,
-                                partidos: partidos[dia]!,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+##Problemática
 
-class PantallaPartidos extends StatelessWidget {
-  final String dia;
-  final List<Map<String, String>> partidos;
+Muchos fanáticos del fútbol argentino suelen depender de Google para saber cuándo juega su equipo. Sin embargo, no siempre la información aparece correctamente o de forma clara. Esta aplicación soluciona ese problema, ofreciendo una **interfaz limpia**, **ordenada por días de la semana** y con **datos fáciles de leer** sobre partidos, equipos y horarios.
 
-  PantallaPartidos({required this.dia, required this.partidos});
+---
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(dia),
-        backgroundColor: Colors.blue[700],
-        foregroundColor: Colors.white,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue[50]!, Colors.white],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              Text(
-                'Partidos del $dia',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue[800],
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                '${partidos.length} partido${partidos.length > 1 ? 's' : ''} programado${partidos.length > 1 ? 's' : ''}',
-                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: partidos.length,
-                  itemBuilder: (context, index) {
-                    final partido = partidos[index];
-                    return Card(
-                      margin: EdgeInsets.only(bottom: 16),
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          gradient: LinearGradient(
-                            colors: [Colors.white, Colors.blue[25]!],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[100],
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Icon(Icons.home, color: Colors.blue[700], size: 24),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    partido['local']!,
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text('Local', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'VS',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue[700],
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[700],
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Text(
-                                      partido['hora']!,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.orange[100],
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Icon(Icons.flight_takeoff, color: Colors.orange[700], size: 24),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    partido['visitante']!,
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text('Visitante', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+##Tecnologías Utilizadas
+
+- **Lenguaje:** Dart
+- **Framework:** Flutter
+- **Entorno de desarrollo:** Visual Studio Code / Flutter SDK
+- **Compatibilidad:** Android (100% funcional)
+- **Ejecución Web:** Soporte parcial mediante `flutter run -d chrome` (para pruebas sin dispositivo Android)
+
+---
+
+##Funcionalidades
+
+- Ver partidos de cada día de la semana (de lunes a domingo).
+- Interfaz clara con tarjetas por día y partidos.
+- Información rápida: equipos locales, visitantes y horario del encuentro.
+- Navegación fluida entre pantallas.
+
+---
+
+##Estructura de Pantallas
+
+###Pantalla de Inicio
+- Título de la aplicación.
+- Introducción con instrucciones.
+- Lista de días de la semana (cards interactivas).
+
+###Pantalla de Partidos
+- Lista detallada de partidos para el día seleccionado.
+- Visualización clara de equipos y horarios.
+
+---
+
+##Diseño y Estética
+
+- Paleta de colores basada en **azules y blancos** (inspiración argentina).
+- Iconografía para representar partidos, horarios y roles (local/visitante).
+- Gradientes suaves y cards modernas.
+
+---
+
+## Estado del Proyecto
+
+Código funcional en Flutter  
+Navegación entre pantallas  
+Diseño responsive  
+Datos fijos precargados (mock data)  
+Futuras mejoras: agregar base de datos en tiempo real, integración con API oficial, mostrar resultados.
+
+---
+
+##¿Cómo Ejecutarla?
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/usuario/nombre-repo.git
